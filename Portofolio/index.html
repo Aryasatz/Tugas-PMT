@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio | Web Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6c63ff;
+      --primary-light: #a5a1ff;
+      --dark: #1e1e1e;
+      --light: #f9f9f9;
+      --gray: #e5e5e5;
+      --success: #10b981;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    section {
+      padding: 5rem 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+    
+    header.scrolled {
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem 0;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      font-weight: 500;
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(108, 99, 255, 0.1) 0%, rgba(255, 255, 255, 1) 100%);
+    }
+    
+    .hero-content {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+    
+    .hero-text {
+      flex: 1;
+    }
+    
+    .hero-image {
+      flex: 1;
+      text-align: center;
+    }
+    
+    .hero-image img {
+      width: 100%;
+      max-width: 350px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(108, 99, 255, 0.2);
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero h1 span {
+      color: var(--primary);
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 30px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+    }
+    
+    /* About Section */
+    .about-content {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    
+    .about-image {
+      flex: 1;
+    }
+    
+    .about-image img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    
+    .about-text {
+      flex: 1;
+    }
+    
+    .about-text h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .about-text p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .skills {
+      margin-top: 2rem;
+    }
+    
+    .skill-item {
+      margin-bottom: 1.5rem;
+    }
+    
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    
+    .skill-bar {
+      height: 8px;
+      background: var(--gray);
+      border-radius: 4px;
+    }
+    
+    .skill-progress {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 4px;
+      position: relative;
+    }
+    
+    .skill-progress::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -10px;
+      width: 15px;
+      height: 15px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+    
+    /* Portfolio Section */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .portfolio-item {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .portfolio-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .portfolio-image {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .portfolio-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .portfolio-item:hover .portfolio-image img {
+      transform: scale(1.1);
+    }
+    
+    .portfolio-info {
+      padding: 1.5rem;
+    }
+    
+    .portfolio-info h3 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .portfolio-info p {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    
+    .portfolio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .tag {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: var(--gray);
+      border-radius: 30px;
+      font-size: 0.8rem;
+    }
+    
+    /* Contact Section */
+    .contact {
+      background: linear-gradient(135deg, rgba(108, 99, 255, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+    }
+    
+    .contact-container {
+      display: flex;
+      gap: 3rem;
+    }
+    
+    .contact-info {
+      flex: 1;
+    }
+    
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-details {
+      margin-bottom: 2rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-item i {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: var(--gray);
+      color: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .contact-form {
+      flex: 1;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--gray);
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    
+    footer p {
+      opacity: 0.7;
+    }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column-reverse;
+        gap: 2rem;
+      }
+      
+      .hero-text {
+        text-align: center;
+      }
+      
+      .about-content {
+        flex-direction: column;
+      }
+      
+      .contact-container {
+        flex-direction: column;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    
+    .delay-1 {
+      animation-delay: 0.1s;
+    }
+    
+    .delay-2 {
+      animation-delay: 0.2s;
+    }
+    
+    .delay-3 {
+      animation-delay: 0.3s;
+    }
+    
+    /* Other styles */
+    .hidden {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">Portfolio</a>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text animate delay-1">
+          <h1>Hi, I'm <span>Aryasatya</span></h1>
+          <p>A passionate frontend developer focused on creating beautiful, responsive and user-friendly websites.</p>
+          <a href="#portfolio" class="btn">View My Work</a>
+        </div>
+        <div class="hero-image animate delay-2">
+          <img src="https://placehold.co/400x500" alt="Professional headshot of John Doe, a smiling web developer with short brown hair wearing a navy blue blazer against a neutral background" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-content">
+        <div class="about-image animate delay-1">
+          <img src="https://placehold.co/500x600" alt="Casual photo of John Doe working on laptop in a cafe with natural lighting" />
+        </div>
+        <div class="about-text animate delay-2">
+          <h3>Professional Web Developer</h3>
+          <p>With over 5 years of experience in web development, I specialize in creating modern, responsive websites and web applications. My approach combines aesthetic design with clean, efficient code.</p>
+          <p>I'm constantly learning new technologies and techniques to stay at the forefront of web development and deliver the best possible solutions to my clients.</p>
+          
+          <div class="skills">
+            <div class="skill-item">
+              <div class="skill-info">
+                <span>HTML/CSS</span>
+                <span>95%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 95%"></div>
+              </div>
+            </div>
+            
+            <div class="skill-item">
+              <div class="skill-info">
+                <span>JavaScript</span>
+                <span>90%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 90%"></div>
+              </div>
+            </div>
+            
+            <div class="skill-item">
+              <div class="skill-info">
+                <span>React</span>
+                <span>85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 85%"></div>
+              </div>
+            </div>
+            
+            <div class="skill-item">
+              <div class="skill-info">
+                <span>UI/UX Design</span>
+                <span>80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section class="portfolio" id="portfolio">
+    <div class="container">
+      <h2 class="section-title">My Projects</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item animate delay-1">
+          <div class="portfolio-image">
+            <img src="https://placehold.co/600x400" alt="Dashboard interface showing analytics charts and metrics with a dark theme and blue accents" />
+          </div>
+          <div class="portfolio-info">
+            <h3>Analytics Dashboard</h3>
+            <p>A responsive dashboard for tracking business metrics with interactive charts and data visualization.</p>
+            <div class="portfolio-tags">
+              <span class="tag">React</span>
+              <span class="tag">Chart.js</span>
+              <span class="tag">API</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item animate delay-2">
+          <div class="portfolio-image">
+            <img src="https://placehold.co/600x400" alt="Ecommerce product page showing a modern layout with featured products in a grid with clean white space" />
+          </div>
+          <div class="portfolio-info">
+            <h3>E-commerce Store</h3>
+            <p>Full-featured online store with product catalog, shopping cart and secure checkout.</p>
+            <div class="portfolio-tags">
+              <span class="tag">Vue.js</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">MongoDB</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item animate delay-3">
+          <div class="portfolio-image">
+            <img src="https://placehold.co/600x400" alt="Mobile app interface for a travel application with location cards and map integration" />
+          </div>
+          <div class="portfolio-info">
+            <h3>Travel App</h3>
+            <p>Mobile application for discovering and booking travel experiences with integrated maps and reviews.</p>
+            <div class="portfolio-tags">
+              <span class="tag">React Native</span>
+              <span class="tag">Firebase</span>
+              <span class="tag">Google Maps API</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item animate delay-1">
+          <div class="portfolio-image">
+            <img src="https://placehold.co/600x400" alt="Landing page design with bold typography, vibrant gradient and call-to-action button" />
+          </div>
+          <div class="portfolio-info">
+            <h3>Marketing Landing Page</h3>
+            <p>High-conversion landing page with animated elements and optimized for performance.</p>
+            <div class="portfolio-tags">
+              <span class="tag">HTML/CSS</span>
+              <span class="tag">GSAP</span>
+              <span class="tag">SEO</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item animate delay-2">
+          <div class="portfolio-image">
+            <img src="https://placehold.co/600x400" alt="Project management tool interface showing task boards, team members and progress tracking" />
+          </div>
+          <div class="portfolio-info">
+            <h3>Task Management Tool</h3>
+            <p>Collaborative platform for teams to manage projects with Kanban boards and real-time updates.</p>
+            <div class="portfolio-tags">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Firebase</span>
+              <span class="tag">WebSockets</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item animate delay-3">
+          <div class="portfolio-image">
+            <img src="https://placehold.co/600x400" alt="Blog website with featured articles shown in cards with accompanying images and category tags" />
+          </div>
+          <div class="portfolio-info">
+            <h3>Blog Platform</h3>
+            <p>Content management system for writers with rich text editing and SEO optimization.</p>
+            <div class="portfolio-tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">Sanity.io</span>
+              <span class="tag">Tailwind CSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="contact-container">
+        <div class="contact-info animate delay-1">
+          <h3>Contact Information</h3>
+          <div class="contact-details">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>aryasatya.utama@icloud.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone-alt"></i>
+              <span>+62 0811 1817 165</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Indonesia, Bogor</span>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
+          </div>
+        </div>
+        <div class="contact-form animate delay-2">
+          <form id="form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 Aryasatya. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+    
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    const navItems = document.querySelectorAll('.nav-links a');
+    
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Form submission
+    const form = document.getElementById('form');
+    
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Here you would normally send the data to a server
+      // For demo purposes, we'll just log it and show an alert
+      console.log({ name, email, subject, message });
+      alert('Thank you for your message! I will get back to you soon.');
+      
+      // Reset form
+      form.reset();
+    });
+    
+    // Intersection Observer for scroll animations
+    const animateElements = document.querySelectorAll('.animate');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fadeInUp');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    
+    animateElements.forEach(element => {
+      observer.observe(element);
+    });
+  </script>
+</body>
+</html>
+
